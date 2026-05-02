@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DollhouseHair Admin</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+.admin-wrap { max-width: 1100px; margin: auto; padding: 32px 16px; }
+.admin-login, .admin-panel { border: 1px solid var(--line); border-radius: 24px; padding: 20px; background: rgba(255,255,255,.04); }
+.booking-row { border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin: 12px 0; background: rgba(255,255,255,.035); }
+.booking-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.booking-actions button { width: auto; }
+.ai-review-box { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: rgba(255,77,166,.08); margin: 10px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">DollhouseHair</a>
+  <nav><a href="/">Website</a></nav>
+</header>
+
+<main class="admin-wrap">
+  <h1>Admin Dashboard</h1>
+
+  <section class="admin-login" id="loginBox">
+    <h2>Login</h2>
+    <label>Username</label>
+    <input id="adminUser" placeholder="admin" />
+    <label>Password</label>
+    <input id="adminPass" type="password" placeholder="password" />
+    <button onclick="login()">Login</button>
+  </section>
+
+  <section class="admin-panel" id="adminPanel" style="display:none;">
+    <div class="button-row">
+      <button onclick="loadBookings()">Refresh Bookings</button>
+      <button class="secondary" onclick="logout()">Logout</button>
+    </div>
+    <div id="bookings"></div>
+  </section>
+</main>
+
+<script>
+async function login() {
+  const response = await fetch("/api/admin/login", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      username: document.getElementById("adminUser").value,
+      password: document.getElementById("adminPass").value
+    })
+  });
+  const data = await response.json();
+  if (!response.ok) return alert(data.error || "Login failed.");
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("adminPanel").style.display = "block";
+  loadBookings();
+}
+
+async function logout() {
+  await fetch("/api/admin/logout", { method: "POST" });
+  location.reload();
+}
+
+async function loadBookings() {
+  const response = await fetch("/api/admin/bookings");
+  const data = await response.json();
+  if (!response.ok) return alert(data.error || "Please log in.");
+
+  document.getElementById("bookings").innerHTML = data.length ? data.map(b => `
+    <div class="booking-row">
+      <h3>${b.name} — ${b.serviceName}${b.serviceSize ? " / " + b.serviceSize : ""}</h3>
+      <p><strong>Status:</strong> ${b.status}</p>
+      <p><strong>Phone:</strong> ${b.mobile}</p>
+      <p><strong>Date:</strong> ${b.date} at ${b.timeLabel}</p>
+      <p><strong>Duration:</strong> ${b.durationMinutes || 180} minutes</p>
+      <p><strong>Total:</strong> $${b.total} | <strong>Deposit:</strong> $${b.depositAmount}</p>
+      <p><strong>Payment:</strong> ${b.paymentMethod} — ${b.paymentStatus}</p>
+      ${b.proofReview ? `
+        <div class="ai-review-box">
+          <p><strong>AI Review:</strong> ${b.proofReview.aiReviewStatus} (${b.proofReview.aiReviewScore}/100)</p>
+          <p><strong>AI Notes:</strong> ${b.proofReview.aiReviewNotes}</p>
+          <p><strong>Detected:</strong> Amount ${b.proofReview.aiDetectedAmount || "unknown"} • Recipient ${b.proofReview.aiDetectedRecipient || "unknown"} • Date ${b.proofReview.aiDetectedDate || "unknown"}</p>
+          <p><strong>Flags:</strong> ${(b.proofReview.aiReviewFlags || []).join(", ") || "None"}</p>
+        </div>
+      ` : ""}
+      <p><strong>Add-ons:</strong> ${(b.addOns || []).map(a => `${a.name} (+$${a.price})`).join(", ")}</p>
+      <p><strong>Notes:</strong> ${b.notes || "None"}</p>
+      ${b.depositProofFile ? `<p><a class="ghost-link" href="/uploads/${b.depositProofFile}" target="_blank">View Deposit Proof</a></p>` : ""}
+      ${b.fullPaymentProofFile ? `<p><a class="ghost-link" href="/uploads/${b.fullPaymentProofFile}" target="_blank">View Full Payment Proof</a></p>` : ""}
+      <div class="booking-actions">
+        ${b.adminApprovalRequired ? `<button onclick="approveProof('${b.id}')">Approve Proof & Send Address</button>` : ""}
+        <button onclick="updateStatus('${b.id}', 'Completed')">Mark Completed</button>
+        <button onclick="updateStatus('${b.id}', 'Cancelled')">Cancel</button>
+        <button class="secondary" onclick="deleteBooking('${b.id}')">Delete</button>
+      </div>
+    </div>
+  `).join("") : "<p>No bookings yet.</p>";
+}
+
+async function approveProof(id) {
+  const response = await fetch(`/api/admin/bookings/${id}/approve-proof`, { method: "POST" });
+  const data = await response.json();
+  if (!response.ok) return alert(data.error || "Approval failed.");
+  loadBookings();
+}
+
+async function updateStatus(id, status) {
+  await fetch(`/api/admin/bookings/${id}`, {
+    method: "PATCH",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ status })
+  });
+  loadBookings();
+}
+
+async function deleteBooking(id) {
+  if (!confirm("Delete this booking?")) return;
+  await fetch(`/api/admin/bookings/${id}`, { method: "DELETE" });
+  loadBookings();
+}
+</script>
+</body>
+</html>
