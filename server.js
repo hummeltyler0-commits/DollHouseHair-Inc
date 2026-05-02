@@ -121,6 +121,17 @@ app.get("/api/settings", (req, res) => {
 });
 
 app.get("/api/availability", (req, res) => {
+  // TEMP: Always return available times
+  const slots = [
+    { time24: "10:00", label: "10:00 AM" },
+    { time24: "12:00", label: "12:00 PM" },
+    { time24: "14:00", label: "2:00 PM" },
+    { time24: "16:00", label: "4:00 PM" },
+    { time24: "18:00", label: "6:00 PM" }
+  ];
+
+  res.json({ slots });
+});, (req, res) => {
   const date = req.query.date;
   if (!date) return res.status(400).json({ error: "Date required." });
   res.json({ date, slots: slotsForDate(date) });
