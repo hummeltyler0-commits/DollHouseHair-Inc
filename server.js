@@ -132,7 +132,31 @@ app.get("/api/availability", (req, res) => {
   res.json({ slots });
 });
 // ---------- START SERVER ----------
+app.use(express.json());
 
+function isAdmin(req, res, next) {
+  if (req.session && req.session.admin) return next();
+  return res.status(401).json({ error: "Not logged in." });
+}
+
+app.post("/api/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (
+    username === (process.env.ADMIN_USERNAME || "kennedywoods") &&
+    password === (process.env.ADMIN_PASSWORD || "dollhousehairinc")
+  ) {
+    req.session.admin = true;
+    return res.json({ success: true });
+  }
+  res.status(401).json({ error: "Wrong username or password." });
+});
+app.get("/api/admin/bookings", isAdmin, (req, res) => {
+  res.json(readBookings());
+});
+app.post("/api/admin/logout", (req, res) => {
+  req.session.destroy(() => res.json({ success: true }));
+});
 app.listen(PORT, () => {
   console.log(`DollhouseHair running on port ${PORT}`);
 });
