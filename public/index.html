@@ -1,122 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DollhouseHair Booking</title>
+<link rel="stylesheet" href="style.css" />
   <meta charset="UTF-8">
-  <title>DollhouseHair</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #000, #1a1a1a);
-      color: white;
-      text-align: center;
-    }
-
-    .container {
-      padding: 40px 20px;
-    }
-
-    .logo {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      color: hotpink;
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #ccc;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 26px;
-      margin: 10px;
-      border-radius: 12px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.3s ease;
-    }
-
-    .book-btn {
-      background: linear-gradient(45deg, hotpink, pink);
-      color: black;
-      box-shadow: 0 0 15px hotpink;
-    }
-
-    .admin-btn {
-      background: black;
-      color: hotpink;
-      border: 1px solid hotpink;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      opacity: 0.9;
-    }
-
-    footer {
-      margin-top: 60px;
-      font-size: 12px;
-      color: #777;
-    }
-
-    .instagram {
-      color: hotpink;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-  </style>
+  <title>DollHouseHair</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="container">
+<header class="topbar">
+  <a class="brand" href="#home">DollhouseHair</a>
+  <nav>
+    <a href="#services">Book</a>
+    <a href="#policy">Policies</a>
+    <a href="https://instagram.com/dollhouse._hair" target="_blank">Instagram</a>
+  </nav>
+</header>
 
-    <!-- LOGO -->
-    <img src="dollhouse-logo.png" class="logo" alt="DollhouseHair Logo">
-
-    <!-- TITLE -->
-    <h1>DollhouseHair 💖</h1>
-
-    <p>Luxury Hair Services • Book Your Appointment</p>
-
-    <!-- BOOK BUTTON -->
-    <button class="btn book-btn" onclick="<button class="btn book-btn" onclick="window.location.href='#services'">
-  Book Appointment
-</button>">
-      Book Appointment
-    </button>
-
-    <!-- ADMIN BUTTON -->
-    <button class="btn admin-btn" onclick="window.location.href='admin.html'">
-      Admin Login
-    </button>
-
-    <!-- INSTAGRAM -->
-    <p>
-      Follow us:
-      <a class="instagram" href="https://instagram.com/dollhouse._hair" target="_blank">
-        @dollhouse._hair
-      </a>
-    </p>
-
-    <footer>
-      © DollhouseHair 2026
-    </footer>
-
+<section class="starter-page" id="home">
+  <div class="starter-card">
+    <img src="assets/dollhouse-logo.png" alt="DollhouseHair Monroe Based Hairstylist logo" class="main-logo" />
+    <p class="starter-subtitle">Monroe Based Hairstylist</p>
+    <div class="starter-actions">
+      <a class="primary-link big-book-btn" href="#services">Book Appointment</a>
+      <a class="ghost-link" href="https://instagram.com/dollhouse._hair" target="_blank">@dollhouse._hair</a>
+    </div>
   </div>
+</section>
 
+<section id="policy" class="policy">
+  <h2>Policies</h2>
+  <div class="policy-grid">
+    <div class="policy-item"><span class="policy-icon">⏰</span><p>For every minute you’re late, it is $2. After an hour of being late, your appointment will be cancelled and you’ll have to reschedule.</p></div>
+    <div class="policy-item"><span class="policy-icon">💸</span><p>Every minute we don’t start on time because of me is $2 off your total.</p></div>
+    <div class="policy-item"><span class="policy-icon">🧼</span><p>Hair must be washed and blow dried unless you have locs. Locs must be washed.</p></div>
+    <div class="policy-item"><span class="policy-icon">💵</span><p>Must pay with cash or approved online deposit checkout. Deposits are <strong>non-refundable</strong>.</p></div>
+    <div class="policy-item"><span class="policy-icon">🔁</span><p>Reschedules must be requested at least 24 hours before your appointment.</p></div>
+    <div class="policy-item"><span class="policy-icon">🚗</span><p>House calls are available. For every mile, it’s +$2.</p></div>
+    <div class="policy-item"><span class="policy-icon">👥</span><p>If you want someone to sit in on the appointment, please let me know beforehand.</p></div>
+    <div class="policy-item"><span class="policy-icon">📍</span><p>Exact address is sent by SMS after deposit is confirmed.</p></div>
+  </div>
+</section>
+
+<main id="services" class="booking-shell">
+  <aside class="booking-sidebar">
+    <p class="step-label">Booking Steps</p>
+    <ol>
+      <li class="active-step" id="nav1">Pick style</li>
+      <li id="nav2">Pick size</li>
+      <li id="nav3">Add add-ons</li>
+      <li id="nav4">Pick date & time</li>
+      <li id="nav5">Enter contact info</li>
+      <li id="nav6">Send deposit</li>
+    </ol>
+
+    <div class="summary-card">
+      <h3>Your Total</h3>
+      <p class="total" id="runningTotal">$0</p>
+      <small id="summaryText">Select a style to begin.</small>
+    </div>
+  </aside>
+
+  <section class="booking-panel">
+    <div class="flow-step active" data-flow="1">
+      <h2>1. Pick the style you want</h2>
+      <p class="muted">Choose your service. Prices say “starting at” until you pick a size.</p>
+      <div class="service-list" id="serviceList"></div>
+    </div>
+
+    <div class="flow-step" data-flow="2">
+      <h2>2. Pick your size</h2>
+      <p class="muted">Choose the size/option for this style so your total is accurate.</p>
+      <div class="option-grid" id="sizeOptions"></div>
+      <div class="button-row">
+        <button class="secondary" onclick="goFlow(1)">Back</button>
+        <button onclick="validateSize()">Continue to Add-ons</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-flow="3">
+      <h2>3. Add your add-ons</h2>
+      <p class="muted">Choose length, boho, and hair-provided options before entering info.</p>
+
+      <h3>Length</h3>
+      <div class="option-grid" id="lengthOptions"></div>
+
+      <h3>Boho</h3>
+      <div class="option-grid" id="bohoOptions"></div>
+
+      <h3>Hair Provided?</h3>
+      <div class="option-grid" id="hairOptions"></div>
+
+      <div class="button-row">
+        <button class="secondary" onclick="goFlow(2)">Back</button>
+        <button onclick="goFlow(4)">Continue to Calendar</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-flow="4">
+      <h2>4. Pick a date & time</h2>
+      <p class="muted">Choose an available day, then select your appointment time.</p>
+
+      <div class="booksy-calendar">
+        <div class="calendar-header">
+          <button class="circle-btn" type="button" onclick="changeCalendarMonth(-1)">‹</button>
+          <div>
+            <h3 id="calendarMonthLabel">Month</h3>
+            <p id="calendarHelper">Available dates are highlighted in pink.</p>
+          </div>
+          <button class="circle-btn" type="button" onclick="changeCalendarMonth(1)">›</button>
+        </div>
+
+        <div class="weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid"></div>
+
+        <div class="selected-date-card">
+          <p class="muted">Selected Date</p>
+          <strong id="selectedDateLabel">Choose a date</strong>
+        </div>
+
+        <h3>Available Times</h3>
+        <div class="times" id="timeSlots">
+          <p class="muted">Pick a date to see available times.</p>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button class="secondary" onclick="goFlow(3)">Back</button>
+        <button onclick="validateCalendar()">Continue</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-flow="5">
+      <h2>5. Put in your info</h2>
+      <p class="muted">You’ll see your total before finishing.</p>
+
+      <div class="checkout-card">
+        <h3>Appointment Summary</h3>
+        <div id="finalSummary"></div>
+      </div>
+
+      <label>First & Last Name</label>
+      <input id="clientName" type="text" placeholder="Your full name" required />
+
+      <label>Mobile Number</label>
+      <input id="clientPhone" type="tel" placeholder="3187892802" required />
+
+      <label>Notes Optional</label>
+      <textarea id="clientNotes" placeholder="Color, special requests, etc."></textarea>
+
+      <div class="button-row">
+        <button class="secondary" onclick="goFlow(4)">Back</button>
+        <button onclick="validateInfo()">Continue to Deposit</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-flow="6">
+      <h2>6. Send deposit to book</h2>
+      <p class="muted">Exact address is sent by SMS after deposit is confirmed.</p>
+
+      <div class="deposit-card">
+        <p>Deposit Required</p>
+        <strong id="depositDue">$20</strong>
+        <button id="stripeBtn" type="button" onclick="payWithStripe()">Pay Deposit & Book Appointment</button>
+        <small>Stripe can accept card, Apple Pay, and Cash App Pay after you connect your Stripe account.</small>
+      </div>
+
+      <div class="cashapp-fallback">
+        <h3>Cash App Backup</h3>
+        <p class="muted">Only use this if online payment is unavailable.</p>
+        <a href="https://cash.app/$Kenaw08" target="_blank">Pay Cash App $Kenaw08</a>
+
+        <label>Upload Cash App Deposit Proof Screenshot</label>
+        <input id="depositProof" type="file" accept="image/*" />
+
+        <label>Upload Full Payment Proof Screenshot Optional</label>
+        <input id="fullPaymentProof" type="file" accept="image/*" />
+
+        <label class="check">
+          <input id="depositConfirm" type="checkbox" />
+          I sent my deposit and understand this books my appointment.
+        </label>
+
+        <button id="submitBtn" type="button" onclick="submitBooking()">Book with Cash App Proof</button>
+      </div>
+
+      <div class="button-row">
+        <button class="secondary" onclick="goFlow(5)">Back</button>
+      </div>
+    </div>
+<body>
+
+    <div class="flow-step" data-flow="7">
+      <div class="success-card">
+        <h2>You're Booked 💕</h2>
+        <p>You're booked! Address has been texted to you.</p>
+        <p>Booking ID: <strong id="bookingId"></strong></p>
+        <a id="smsCopy" href="#">Send Text Copy</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <h1>Welcome to DollHouseHair 💖</h1>
+
+  <br>
+
+  <!-- Booking Button -->
+  <button onclick="window.location.href='booking.html'" style="
+    padding: 12px 24px;
+    background: hotpink;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+  ">
+    Book Appointment
+  </button>
+
+  <br><br>
+
+  <!-- Admin Button -->
+  <button onclick="window.location.href='admin.html'" style="
+    padding: 10px 20px;
+    background: black;
+    color: pink;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  ">
+    Admin Login
+  </button>
+
+  <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>
