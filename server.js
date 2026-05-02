@@ -134,7 +134,6 @@ app.get("/api/availability", (req, res) => {
   const date = req.query.date;
   if (!date) return res.status(400).json({ error: "Date required." });
   res.json({ date, slots: slotsForDate(date) });
-});
 
 // ---------- START SERVER ----------
 
