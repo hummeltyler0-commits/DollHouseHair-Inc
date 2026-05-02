@@ -2,46 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DollHouseHair</title>
-  <link rel="stylesheet" href="style.css">
+  <title>DollhouseHair</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #000, #1a1a1a);
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    .logo {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: hotpink;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 26px;
+      margin: 10px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    .book-btn {
+      background: linear-gradient(45deg, hotpink, pink);
+      color: black;
+      box-shadow: 0 0 15px hotpink;
+    }
+
+    .admin-btn {
+      background: black;
+      color: hotpink;
+      border: 1px solid hotpink;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .instagram {
+      color: hotpink;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+  </style>
 </head>
 
 <body>
 
-  <h1>Welcome to DollHouseHair 💖</h1>
+  <div class="container">
 
-  <br>
+    <!-- LOGO -->
+    <img src="dollhouse-logo.png" class="logo" alt="DollhouseHair Logo">
 
-  <!-- Booking Button -->
-  <button onclick="window.location.href='booking.html'" style="
-    padding: 12px 24px;
-    background: hotpink;
-    color: black;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px;
-  ">
-    Book Appointment
-  </button>
+    <!-- TITLE -->
+    <h1>DollhouseHair 💖</h1>
 
-  <br><br>
+    <p>Luxury Hair Services • Book Your Appointment</p>
 
-  <!-- Admin Button -->
-  <button onclick="window.location.href='admin.html'" style="
-    padding: 10px 20px;
-    background: black;
-    color: pink;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  ">
-    Admin Login
-  </button>
+    <!-- BOOK BUTTON -->
+    <button class="btn book-btn" onclick="window.location.href='booking.html'">
+      Book Appointment
+    </button>
 
-  <script src="script.js"></script>
+    <!-- ADMIN BUTTON -->
+    <button class="btn admin-btn" onclick="window.location.href='admin.html'">
+      Admin Login
+    </button>
+
+    <!-- INSTAGRAM -->
+    <p>
+      Follow us:
+      <a class="instagram" href="https://instagram.com/dollhouse._hair" target="_blank">
+        @dollhouse._hair
+      </a>
+    </p>
+
+    <footer>
+      © DollhouseHair 2026
+    </footer>
+
+  </div>
 
 </body>
 </html>
