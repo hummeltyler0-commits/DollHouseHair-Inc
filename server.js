@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const multer = require("multer");
 const cors = require("cors");
 const path = require("path");
@@ -24,6 +25,7 @@ try {
 } catch {}
 
 const app = express();
+app.use(express.static(path.join(__dirname, "public")));
 const PORT = process.env.PORT || 3000;
 
 const uploadsDir = path.join(__dirname, "uploads");
@@ -511,4 +513,7 @@ cron.schedule("0 * * * *", async () => {
 
 app.listen(PORT, () => {
   console.log(`DollhouseHair running on http://localhost:${PORT}`);
+});
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
